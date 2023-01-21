@@ -12,5 +12,5 @@ Program untuk mencari semua solusi permainan kartu 24 menggunakan pendekatan bru
 5. Jika memilih simpan solusi, masukkan nama file untuk menyimpan solusi. file akan tersimpan pada folder test
 
 ##  identitas pembuat
-NIM: 13521105
+NIM: 13521105\
 Nama: Haidar Hamda
