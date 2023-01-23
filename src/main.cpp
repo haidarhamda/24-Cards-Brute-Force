@@ -56,14 +56,6 @@ int main(){
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     if (menu==1){
-//        cout<<"masukkan 4 angka\n";
-//        cin >> a1 >> b1 >> c1 >> d1;
-//        while (!isValid(a,b,c,d)){
-//            cout<<"tidak valid!, ulangi input\n";
-//            cin >> a >> b >> c >> d;
-//            cin.clear();
-//            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//        }
         getValidInput(a1,&abcd);
         a=abcd[0];
         b=abcd[1];
@@ -106,17 +98,6 @@ int main(){
                     calc8(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
                     calc9(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
                     calc10(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    pusVec(x,y,z,0,atmp,btmp,ctmp,dtmp,&temp0);
-                    pusVec(x,y,z,1,atmp,btmp,ctmp,dtmp,&temp1);
-                    pusVec(x,y,z,2,atmp,btmp,ctmp,dtmp,&temp2);
-                    pusVec(x,y,z,3,atmp,btmp,ctmp,dtmp,&temp3);
-                    pusVec(x,y,z,4,atmp,btmp,ctmp,dtmp,&temp4);
-                    pusVec(x,y,z,5,atmp,btmp,ctmp,dtmp,&temp5);
-                    pusVec(x,y,z,6,atmp,btmp,ctmp,dtmp,&temp6);
-                    pusVec(x,y,z,7,atmp,btmp,ctmp,dtmp,&temp7);
-                    pusVec(x,y,z,8,atmp,btmp,ctmp,dtmp,&temp8);
-                    pusVec(x,y,z,9,atmp,btmp,ctmp,dtmp,&temp9);
-                    pusVec(x,y,z,10,atmp,btmp,ctmp,dtmp,&temp10);
 //                    cout<<atmp<<btmp<<ctmp<<dtmp<<"\n";
 //                    cout<<calc<<" "<<x<<" "<<y<<" "<<z<<" "<<temp[temp.size()-1]<<"\n";
                     z++;
@@ -157,17 +138,6 @@ int main(){
         saveFile(fileName,buffer);
     }
     printf("waktu eksekusi: %.3f detik.\n", elapsed.count() * 1e-9);
-//    saveFile("2.txt",temp0);
-//    saveFile("3.txt",temp1);
-//    saveFile("4.txt",temp2);
-//    saveFile("5.txt",temp3);
-//    saveFile("6.txt",temp4);
-//    saveFile("7.txt",temp5);
-//    saveFile("8.txt",temp6);
-//    saveFile("9.txt",temp7);
-//    saveFile("10.txt",temp8);
-//    saveFile("11.txt",temp9);
-//    saveFile("12.txt",temp10);
     return 0;
 }
 
@@ -277,7 +247,6 @@ void removeDupe(std::vector<string> *buffer){
     for (unsigned int i = 1 ; i < buffer->size(); ++i) {
         for (unsigned int k = 0 ; k < i; ++k) {
             if ( buffer->at(i)==buffer->at(k) ) {
-                //remove element if already present
                 buffer->erase(buffer->begin()+i);
                 --i;
                 break;
