@@ -85,7 +85,7 @@ int main(){
                     while (calc<11){
                         pusVec(x,y,z,calc,atmp,btmp,ctmp,dtmp,&buffer, false);
                         infixtoPostfix(buffer.at(buffer.size()-1),&temp);
-                        if (24- calculatePostfix(temp[temp.size()-1])==0){
+                        if (((24- calculatePostfix(temp[temp.size()-1]))<0.0001 && (calculatePostfix(temp[temp.size()-1])-24)>-0.0001)&&((24- calculatePostfix(temp[temp.size()-1]))>-0.0001 && (calculatePostfix(temp[temp.size()-1])-24)<0.0001)){
                             pusVec(x,y,z,calc,atmp,btmp,ctmp,dtmp,&result, true);
                         }
                         buffer.pop_back();
