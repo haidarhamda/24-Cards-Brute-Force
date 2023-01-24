@@ -38,22 +38,22 @@ int main(){
     float d;
     std::vector<float> abcd;
     std::string a1="";
-    int menu=0;
+    string menu="";
     std::cout << "1. input\n2. random\n";
     std::cin >> menu;
-    while (menu!=1 && menu!=2){
+    while (menu!="1" && menu!="2"){
         std::cout<<"tidak valid!, ulangi input\n";
         std::cin >> menu;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//        std::cin.clear();
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    if (menu==1){
+    if (menu=="1"){
         getValidInput(a1,&abcd);
         a=abcd[0];
         b=abcd[1];
         c=abcd[2];
         d=abcd[3];
-    } else if (menu==2){
+    } else if (menu=="2"){
         a=1+rand()%13;
         b=1+rand()%13;
         c=1+rand()%13;
@@ -114,16 +114,16 @@ int main(){
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
 
-    int save=0;
+    string save="";
     std::cout << "simpan file solusi?\n"<<"1. simpan\n2. tidak\n";
     std::cin >> save;
-    while (save!=1 && save!=2){
+    while (save!="1" && save!="2"){
         std::cout<<"tidak valid!, ulangi input\n";
-        std::cin >> menu;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> save;
+//        std::cin.clear();
+//        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    if (save==1){
+    if (save=="1"){
         std::cout<<"masukkan nama file\n";
         std::string fileName;
         std::cin>>fileName;
