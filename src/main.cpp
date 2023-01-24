@@ -10,50 +10,42 @@
 #include <fstream>
 #include <iterator>
 #include <chrono>
-
 using namespace std;
-void calc0(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc1(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc2(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc3(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc4(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc5(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc6(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc7(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc8(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc9(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
-void calc10(int x,int y,int z, float a, float b, float c, float d, std::vector<std::string> *buffer);
 bool isValid(float a,float b,float c,float d);
 void f2s(float a, float b, float c, float d,std::vector<string> *p);
-string getOP(int x);
-void getKurbuk(int calc,string *kurbuk1,string *kurbuk2,string *kurbuk3,string *kurbuk4,string *kurbuk5);
-void getKurtup(int calc,string *kurtup1,string *kurtup2,string *kurtup3,string *kurtup4,string *kurtup5);
-void pusVec(int x,int y,int z,int calc,float a, float b, float c, float d, std::vector<string> *buffer);
+std::string getOP(int x);
+void getKurbuk(int calc,std::string *kurbuk1,std::string *kurbuk2,std::string *kurbuk3,std::string *kurbuk4,std::string *kurbuk5);
+void getKurtup(int calc,std::string *kurbuk1,std::string *kurbuk2,std::string *kurbuk3,std::string *kurbuk4,std::string *kurbuk5);
+void pusVec(int x,int y,int z,int calc,float a, float b, float c, float d, std::vector<std::string> *buffer,bool tf);
 void swap(float a, float b, float c, float d, float *e, float *f, float *g, float *h,int tag);
-void removeDupe(std::vector<string> *buffer);
-bool cekStr(string token);
-void getValidInput(string a1, std::vector<float> *abcd);
-vector<string> split(string str, string token);
-void saveFile(string name,vector<string> buffer);
+void removeDupe(std::vector<std::string> *buffer);
+bool cekStr(std::string token);
+void getValidInput(std::string a1, std::vector<float> *abcd);
+std::vector<std::string> split(std::string str, std::string token);
+void saveFile(std::string name,std::vector<std::string> buffer);
+void infixtoPostfix(string exp, vector<string> *buffer);
+int getPrecedence(string ops);
+float getNum(string str);
+float calculatePostfix(string exp);
 
 int main(){
     srand((int)time(0));
-    std::vector<string> buffer;
-    std::vector<string> temp0,temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,temp9,temp10;
+    std::vector<std::string> buffer;
+    std::vector<std::string> temp;
     float a;
     float b;
     float c;
     float d;
-    vector<float> abcd;
-    string a1="";
+    std::vector<float> abcd;
+    std::string a1="";
     int menu=0;
-    cout << "1. input\n2. random\n";
-    cin >> menu;
+    std::cout << "1. input\n2. random\n";
+    std::cin >> menu;
     while (menu!=1 && menu!=2){
-        cout<<"tidak valid!, ulangi input\n";
-        cin >> menu;
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout<<"tidak valid!, ulangi input\n";
+        std::cin >> menu;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     if (menu==1){
         getValidInput(a1,&abcd);
@@ -66,8 +58,8 @@ int main(){
         b=1+rand()%13;
         c=1+rand()%13;
         d=1+rand()%13;
-        cout << "4 angka random:\n";
-        cout << a<<" " << b<<" " << c<<" " << d<<"\n";
+        std::cout << "4 angka random:\n";
+        std::cout << a<<" " << b<<" " << c<<" " << d<<"\n";
     }
     auto begin = std::chrono::high_resolution_clock::now();
     int x=0;
@@ -79,7 +71,9 @@ int main(){
     btmp=b;
     ctmp=c;
     dtmp=d;
+    vector<string> result;
     int tag=1;
+//    int calc=0;
     while (tag<25) {
         x=0;
         while (x < 4) {
@@ -87,19 +81,17 @@ int main(){
             while (y < 4) {
                 z = 0;
                 while (z < 4) {
-                    calc0(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc1(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc2(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc3(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc4(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc5(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc6(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc7(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc8(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc9(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-                    calc10(x, y, z, atmp, btmp, ctmp, dtmp, &buffer);
-//                    cout<<atmp<<btmp<<ctmp<<dtmp<<"\n";
-//                    cout<<calc<<" "<<x<<" "<<y<<" "<<z<<" "<<temp[temp.size()-1]<<"\n";
+                    calc=0;
+                    while (calc<11){
+                        pusVec(x,y,z,calc,atmp,btmp,ctmp,dtmp,&buffer, false);
+                        infixtoPostfix(buffer.at(buffer.size()-1),&temp);
+                        if (24- calculatePostfix(temp[temp.size()-1])==0){
+                            pusVec(x,y,z,calc,atmp,btmp,ctmp,dtmp,&result, true);
+                        }
+                        buffer.pop_back();
+                        temp.pop_back();
+                        calc++;
+                    }
                     z++;
                 }
                 y++;
@@ -111,44 +103,46 @@ int main(){
 //        printf("%f %f %f %f\n",atmp,btmp,ctmp,dtmp);
         tag++;
     }
-    removeDupe(&buffer);
+    removeDupe(&result);
     int i=0;
-    int n=buffer.size();
+    int n=result.size();
     printf("%d solusi\n",n);
-    while (i<buffer.size()){
-        cout<<buffer[i]<<"\n";
+    while (i<result.size()){
+        std::cout<<result[i]<<"\n";
         i++;
     }
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
 
     int save=0;
-    cout << "simpan file solusi?\n"<<"1. simpan\n2. tidak\n";
-    cin >> save;
+    std::cout << "simpan file solusi?\n"<<"1. simpan\n2. tidak\n";
+    std::cin >> save;
     while (save!=1 && save!=2){
-        cout<<"tidak valid!, ulangi input\n";
-        cin >> menu;
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout<<"tidak valid!, ulangi input\n";
+        std::cin >> menu;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     if (save==1){
-        cout<<"masukkan nama file\n";
-        string fileName;
-        cin>>fileName;
-        saveFile(fileName,buffer);
+        std::cout<<"masukkan nama file\n";
+        std::string fileName;
+        std::cin>>fileName;
+        saveFile(fileName,result);
+//        saveFile(fileName+"1",temp);
+//        saveFile(fileName+"2",result);
     }
     printf("waktu eksekusi: %.3f detik.\n", elapsed.count() * 1e-9);
     return 0;
 }
 
-void getValidInput(string a1, std::vector<float> *abcd){
-    string atmp;
-    vector<string> p;
+void getValidInput(std::string a1, std::vector<float> *abcd){
+    std::string atmp;
+    std::vector<std::string> p;
     bool isvalid= false;
-    cout<<"masukkan 4 angka\n";
+    std::cout<<"masukkan 4 angka\n";
     while (!isvalid){
 //        cout<<"1";
-        getline(cin,a1);
+        getline(std::cin,a1);
         if (a1.empty()){
             isvalid= false;
             continue;
@@ -171,7 +165,7 @@ void getValidInput(string a1, std::vector<float> *abcd){
             }
         }
         if (!isvalid){
-            cout<<"input tidak valid\n";
+            std::cout<<"input tidak valid\n";
         }
     }
     int i=0;
@@ -199,18 +193,18 @@ void getValidInput(string a1, std::vector<float> *abcd){
 
 }
 
-void saveFile(string name,vector<string> buffer){
-    string path="../test/"+name+".txt";
+void saveFile(std::string name,std::vector<std::string> buffer){
+    std::string path="../test/"+name+".txt";
     std::ofstream output_file(path);
     std::ostream_iterator<std::string> output_iterator(output_file, "\n");
     std::copy(buffer.begin(), buffer.end(), output_iterator);
 }
 
-vector<string> split(string str, string token){
-    vector<string>result;
+std::vector<std::string> split(std::string str, std::string token){
+    std::vector<std::string>result;
     while(str.size()){
         int index = str.find(token);
-        if(index!=string::npos){
+        if(index!=std::string::npos){
             result.push_back(str.substr(0,index));
             str = str.substr(index+token.size());
             if(str.size()==0)result.push_back(str);
@@ -223,7 +217,7 @@ vector<string> split(string str, string token){
 }
 
 
-bool cekStr(string token){
+bool cekStr(std::string token){
     return (token=="A")||(token=="2")||(token=="3")||(token=="4")||(token=="5")||(token=="6")||(token=="7")||(token=="8")||(token=="9")||(token=="10")||(token=="J")||(token=="Q")||(token=="K");
 }
 
@@ -232,18 +226,30 @@ bool isValid(float a,float b,float c,float d){
 }
 
 void f2s(float a, float b, float c, float d,std::vector<string> *p){
-    string as= to_string((int) a);
-    string bs= to_string((int) b);
-    string cs= to_string((int) c);
-    string ds= to_string((int) d);
-
+    std::string as= std::__cxx11::to_string((int) a);
+    std::string bs= std::__cxx11::to_string((int) b);
+    std::string cs= std::__cxx11::to_string((int) c);
+    std::string ds= std::__cxx11::to_string((int) d);
     p->push_back(as);
     p->push_back(bs);
     p->push_back(cs);
     p->push_back(ds);
+    int i=0;
+    while (i<4){
+        if (p->at(i)=="10"){
+            p->at(i)="S";
+        } else if (p->at(i)=="11"){
+            p->at(i)="J";
+        } else if (p->at(i)=="12"){
+            p->at(i)="Q";
+        } else if (p->at(i)=="13"){
+            p->at(i)="K";
+        }
+        i++;
+    }
 }
 
-void removeDupe(std::vector<string> *buffer){
+void removeDupe(std::vector<std::string> *buffer){
     for (unsigned int i = 1 ; i < buffer->size(); ++i) {
         for (unsigned int k = 0 ; k < i; ++k) {
             if ( buffer->at(i)==buffer->at(k) ) {
@@ -386,24 +392,33 @@ void swap(float a, float b, float c, float d, float *e, float *f, float *g, floa
 
 
 
-void pusVec(int x,int y,int z,int calc,float a, float b, float c, float d, std::vector<string> *buffer){
-    std::vector<string> p;
+void pusVec(int x,int y,int z,int calc,float a, float b, float c, float d, std::vector<std::string> *buffer,bool tf){
+    std::vector<std::string> p;
     f2s(a,b,c,d,&p);
-    string op1,op2,op3;
+    std::string op1,op2,op3;
     op1=getOP(x);
     op2=getOP(y);
     op3=getOP(z);
-    string kurbuk1,kurbuk2,kurbuk3,kurbuk4,kurbuk5;
+    std::string kurbuk1,kurbuk2,kurbuk3,kurbuk4,kurbuk5;
     getKurbuk(calc,&kurbuk1,&kurbuk2,&kurbuk3,&kurbuk4,&kurbuk5);
-    string kurtup1,kurtup2,kurtup3,kurtup4,kurtup5;
+    std::string kurtup1,kurtup2,kurtup3,kurtup4,kurtup5;
     getKurtup(calc,&kurtup1,&kurtup2,&kurtup3,&kurtup4,&kurtup5);
 //    string cc= to_string(calc);
 //    string xx= to_string(x);
 //    string yy= to_string(y);
 //    string zz= to_string(z);
 //    cc+". "+xx+" "+yy+" "+zz+" "+
-    string buf=kurbuk1+kurbuk2+p[0]+op1+kurbuk3+kurbuk4+ p[1]+kurtup1+op2+kurbuk5+p[2]+kurtup2+kurtup3+op3+p[3]+kurtup4+kurtup5;
-    string s(buf);
+    if (tf){
+        int i=0;
+        while (i<4){
+            if (p[i]=="S"){
+                p[i]="10";
+            }
+            i++;
+        }
+    }
+    std::string buf=kurbuk1+kurbuk2+p[0]+op1+kurbuk3+kurbuk4+ p[1]+kurtup1+op2+kurbuk5+p[2]+kurtup2+kurtup3+op3+p[3]+kurtup4+kurtup5;
+    std::string s(buf);
 
 
 //    for (int i = 0; i < s.size(); i++) {
@@ -412,7 +427,7 @@ void pusVec(int x,int y,int z,int calc,float a, float b, float c, float d, std::
     buffer->push_back(s);
 }
 
-string getOP(int x){
+std::string getOP(int x){
     if (x==0){
         return "+";
     } else if (x==1){
@@ -426,7 +441,7 @@ string getOP(int x){
     }
 }
 
-void getKurbuk(int calc,string *kurbuk1,string *kurbuk2,string *kurbuk3,string *kurbuk4,string *kurbuk5){
+void getKurbuk(int calc,std::string *kurbuk1,std::string *kurbuk2,std::string *kurbuk3,std::string *kurbuk4,std::string *kurbuk5){
     *kurbuk1="";
     *kurbuk2="";
     *kurbuk3="";
@@ -461,7 +476,7 @@ void getKurbuk(int calc,string *kurbuk1,string *kurbuk2,string *kurbuk3,string *
     }
 }
 
-void getKurtup(int calc,string *kurtup1,string *kurtup2,string *kurtup3,string *kurtup4,string *kurtup5){
+void getKurtup(int calc,std::string *kurtup1,std::string *kurtup2,std::string *kurtup3,std::string *kurtup4,std::string *kurtup5){
     *kurtup1="";
     *kurtup2="";
     *kurtup3="";
@@ -496,2459 +511,126 @@ void getKurtup(int calc,string *kurtup1,string *kurtup2,string *kurtup3,string *
     }
 }
 
+void infixtoPostfix(string exp, vector<string> *buffer){
+    vector<string> operatorr;
+    string ret="";
+    string s="";
+    int i=0;
+    while(i<exp.size()){
+        s="";
+        s+=exp.at(i);
+L1:
+        if (s=="+"|| s=="-" || s=="*" || s=="/" || s=="(" || s==")"){
+            if (operatorr.empty()){
+                operatorr.push_back(s);
+            } else{
 
+                if (s=="("){
+                    operatorr.push_back(s);
+                } else if (s==")"){
+                    while (!operatorr.empty() && operatorr.at(operatorr.size()-1)!="("){
+                        ret+=operatorr.at(operatorr.size()-1);
+                        operatorr.pop_back();
+                    }
+//                    operatorr.pop_back();
+                    if (!operatorr.empty()&&operatorr.at(operatorr.size()-1)=="("){
+                        operatorr.pop_back();
+                    }
+                }
+                else if (getPrecedence(operatorr.at(operatorr.size()-1))< getPrecedence(s)){
+                    operatorr.push_back(s);
+                } else if (getPrecedence(operatorr.at(operatorr.size()-1))== getPrecedence(s)){
+                    ret+=operatorr.at(operatorr.size()-1);
+                    operatorr.pop_back();
+                    operatorr.push_back(s);
+                } else if (getPrecedence(operatorr.at(operatorr.size()-1))> getPrecedence(s)){
+//                    while (!operatorr.empty()&& operatorr.at(operatorr.size()-1)!="("&& getPrecedence(operatorr.at(operatorr.size()-1))> getPrecedence(s)){
+//                        ret+=operatorr.at(operatorr.size()-1);
+//                        operatorr.pop_back();
+//                    }
+//                    if (!operatorr.empty()&&operatorr.at(operatorr.size()-1)=="("){
+//                        operatorr.pop_back();
+//                    }
+                    ret+=operatorr.at(operatorr.size()-1);
+                    operatorr.pop_back();
+                    goto L1;
+                }
+            }
+        } else {
+            if (s!="("&&s!=")"){
+                ret+=s;
+            }
+        }
+        i++;
+    }
+    while (!operatorr.empty()){
+        ret+=operatorr.at(operatorr.size()-1);
+        operatorr.pop_back();
+    }
+    buffer->push_back(ret);
+}
 
-void calc0(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=0;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+b+c+d;
-            } else if (z==1){
-                res=a+b+c-d;
-            } else if (z==2){
-                res=a+b+c*d;
-            } else if (z==3){
-                res=a+b+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+b-c+d;
-            } else if (z==1){
-                res=a+b-c-d;
-            } else if (z==2){
-                res=a+b-c*d;
-            } else if (z==3){
-                res=a+b-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+b*c+d;
-            } else if (z==1){
-                res=a+b*c-d;
-            } else if (z==2){
-                res=a+b*c*d;
-            } else if (z==3){
-                res=a+b*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+b/c+d;
-            } else if (z==1){
-                res=a+b/c-d;
-            } else if (z==2){
-                res=a+b/c*d;
-            } else if (z==3){
-                res=a+b/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=a-b+c+d;
-            } else if (z==1){
-                res=a-b+c-d;
-            } else if (z==2){
-                res=a-b+c*d;
-            } else if (z==3){
-                res=a-b+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a-b-c+d;
-            } else if (z==1){
-                res=a-b-c-d;
-            } else if (z==2){
-                res=a-b-c*d;
-            } else if (z==3){
-                res=a-b-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a-b*c+d;
-            } else if (z==1){
-                res=a-b*c-d;
-            } else if (z==2){
-                res=a-b*c*d;
-            } else if (z==3){
-                res=a-b*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a-b/c+d;
-            } else if (z==1){
-                res=a-b/c-d;
-            } else if (z==2){
-                res=a-b/c*d;
-            } else if (z==3){
-                res=a-b/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=a*b+c+d;
-            } else if (z==1){
-                res=a*b+c-d;
-            } else if (z==2){
-                res=a*b+c*d;
-            } else if (z==3){
-                res=a*b+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a*b-c+d;
-            } else if (z==1){
-                res=a*b-c-d;
-            } else if (z==2){
-                res=a*b-c*d;
-            } else if (z==3){
-                res=a*b-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a*b*c+d;
-            } else if (z==1){
-                res=a*b*c-d;
-            } else if (z==2){
-                res=a*b*c*d;
-            } else if (z==3){
-                res=a*b*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a*b/c+d;
-            } else if (z==1){
-                res=a*b/c-d;
-            } else if (z==2){
-                res=a*b/c*d;
-            } else if (z==3){
-                res=a*b/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=a/b+c+d;
-            } else if (z==1){
-                res=a/b+c-d;
-            } else if (z==2){
-                res=a/b+c*d;
-            } else if (z==3){
-                res=a/b+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a/b-c+d;
-            } else if (z==1){
-                res=a/b-c-d;
-            } else if (z==2){
-                res=a/b-c*d;
-            } else if (z==3){
-                res=a/b-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a/b*c+d;
-            } else if (z==1){
-                res=a/b*c-d;
-            } else if (z==2){
-                res=a/b*c*d;
-            } else if (z==3){
-                res=a/b*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a/b/c+d;
-            } else if (z==1){
-                res=a/b/c-d;
-            } else if (z==2){
-                res=a/b/c*d;
-            } else if (z==3){
-                res=a/b/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
+int getPrecedence(string ops){
+    if (ops=="+" || ops=="-"){
+        return 1;
+    } else if (ops=="*" || ops=="/"){
+        return 2;
+    } else {
+        return 0;
     }
 }
 
-void calc1(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=1;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=(a+b)+c+d;
-            } else if (z==1){
-                res=(a+b)+c-d;
-            } else if (z==2){
-                res=(a+b)+c*d;
-            } else if (z==3){
-                res=(a+b)+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a+b)-c+d;
-            } else if (z==1){
-                res=(a+b)-c-d;
-            } else if (z==2){
-                res=(a+b)-c*d;
-            } else if (z==3){
-                res=(a+b)-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a+b)*c+d;
-            } else if (z==1){
-                res=(a+b)*c-d;
-            } else if (z==2){
-                res=(a+b)*c*d;
-            } else if (z==3){
-                res=(a+b)*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a+b)/c+d;
-            } else if (z==1){
-                res=(a+b)/c-d;
-            } else if (z==2){
-                res=(a+b)/c*d;
-            } else if (z==3){
-                res=(a+b)/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=(a-b)+c+d;
-            } else if (z==1){
-                res=(a-b)+c-d;
-            } else if (z==2){
-                res=(a-b)+c*d;
-            } else if (z==3){
-                res=(a-b)+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a-b)-c+d;
-            } else if (z==1){
-                res=(a-b)-c-d;
-            } else if (z==2){
-                res=(a-b)-c*d;
-            } else if (z==3){
-                res=(a-b)-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a-b)*c+d;
-            } else if (z==1){
-                res=(a-b)*c-d;
-            } else if (z==2){
-                res=(a-b)*c*d;
-            } else if (z==3){
-                res=(a-b)*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a-b)/c+d;
-            } else if (z==1){
-                res=(a-b)/c-d;
-            } else if (z==2){
-                res=(a-b)/c*d;
-            } else if (z==3){
-                res=(a-b)/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=(a*b)+c+d;
-            } else if (z==1){
-                res=(a*b)+c-d;
-            } else if (z==2){
-                res=(a*b)+c*d;
-            } else if (z==3){
-                res=(a*b)+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a*b)-c+d;
-            } else if (z==1){
-                res=(a*b)-c-d;
-            } else if (z==2){
-                res=(a*b)-c*d;
-            } else if (z==3){
-                res=(a*b)-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a*b)*c+d;
-            } else if (z==1){
-                res=(a*b)*c-d;
-            } else if (z==2){
-                res=(a*b)*c*d;
-            } else if (z==3){
-                res=(a*b)*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a*b)/c+d;
-            } else if (z==1){
-                res=(a*b)/c-d;
-            } else if (z==2){
-                res=(a*b)/c*d;
-            } else if (z==3){
-                res=(a*b)/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=(a/b)+c+d;
-            } else if (z==1){
-                res=(a/b)+c-d;
-            } else if (z==2){
-                res=(a/b)+c*d;
-            } else if (z==3){
-                res=(a/b)+c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a/b)-c+d;
-            } else if (z==1){
-                res=(a/b)-c-d;
-            } else if (z==2){
-                res=(a/b)-c*d;
-            } else if (z==3){
-                res=(a/b)-c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a/b)*c+d;
-            } else if (z==1){
-                res=(a/b)*c-d;
-            } else if (z==2){
-                res=(a/b)*c*d;
-            } else if (z==3){
-                res=(a/b)*c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a/b)/c+d;
-            } else if (z==1){
-                res=(a/b)/c-d;
-            } else if (z==2){
-                res=(a/b)/c*d;
-            } else if (z==3){
-                res=(a/b)/c/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
+float getNum(string str){
+    float f=0;
+    try {
+        f= stof(str);
+    } catch(std::invalid_argument) {
+        if (str=="S"){
+            f=10;
+        } else if(str=="J"){
+            f=11;
+        } else if(str=="Q"){
+            f=12;
+        } else if(str=="K"){
+            f=13;
         }
     }
+    return f;
 }
 
-void calc2(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=2;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=(a+b)+(c+d);
-            } else if (z==1){
-                res=(a+b)+(c-d);
-            } else if (z==2){
-                res=(a+b)+(c*d);
-            } else if (z==3){
-                res=(a+b)+(c/d);
+float calculatePostfix(string exp){
+    vector<float> res;
+    string s="";
+    int i=0;
+    float o1=0;
+    float o2=0;
+    float result=0;
+    while (i<exp.size()){
+        s="";
+        s+=exp[i];
+        if (s=="+"||s=="-"||s=="*"||s=="/"){
+            o2=res[res.size()-1];
+            res.pop_back();
+            o1=res[res.size()-1];
+            res.pop_back();
+            if (s=="+"){
+                result=o1+o2;
+                res.push_back(result);
+            } else if (s=="-"){
+                result=o1-o2;
+                res.push_back(result);
+            } else if (s=="*"){
+                result=o1*o2;
+                res.push_back(result);
+            } else if (s=="/"){
+                result=o1/o2;
+                res.push_back(result);
             }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a+b)-(c+d);
-            } else if (z==1){
-                res=(a+b)-(c-d);
-            } else if (z==2){
-                res=(a+b)-(c*d);
-            } else if (z==3){
-                res=(a+b)-(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a+b)*(c+d);
-            } else if (z==1){
-                res=(a+b)*(c-d);
-            } else if (z==2){
-                res=(a+b)*(c*d);
-            } else if (z==3){
-                res=(a+b)*(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a+b)/(c+d);
-            } else if (z==1){
-                res=(a+b)/(c-d);
-            } else if (z==2){
-                res=(a+b)/(c*d);
-            } else if (z==3){
-                res=(a+b)/(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
+        } else{
+            res.push_back(getNum(s));
         }
-    } else if (x==1) {
-        if (y == 0) {
-            if (z == 0) {
-                res = (a - b) + (c + d);
-            } else if (z == 1) {
-                res = (a - b) + (c - d);
-            } else if (z == 2) {
-                res = (a - b) + (c * d);
-            } else if (z == 3) {
-                res = (a - b) + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = (a - b) - (c + d);
-            } else if (z == 1) {
-                res = (a - b) - (c - d);
-            } else if (z == 2) {
-                res = (a - b) - (c * d);
-            } else if (z == 3) {
-                res = (a - b) - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = (a - b) * (c + d);
-            } else if (z == 1) {
-                res = (a - b) * (c - d);
-            } else if (z == 2) {
-                res = (a - b) * (c * d);
-            } else if (z == 3) {
-                res = (a - b) * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = (a - b) / (c + d);
-            } else if (z == 1) {
-                res = (a - b) / (c - d);
-            } else if (z == 2) {
-                res = (a - b) / (c * d);
-            } else if (z == 3) {
-                res = (a - b) / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    } else if (x==2) {
-        if (y == 0) {
-            if (z == 0) {
-                res = (a * b) + (c + d);
-            } else if (z == 1) {
-                res = (a * b) + (c - d);
-            } else if (z == 2) {
-                res = (a * b) + (c * d);
-            } else if (z == 3) {
-                res = (a * b) + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = (a * b) - (c + d);
-            } else if (z == 1) {
-                res = (a * b) - (c - d);
-            } else if (z == 2) {
-                res = (a * b) - (c * d);
-            } else if (z == 3) {
-                res = (a * b) - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = (a * b) * (c + d);
-            } else if (z == 1) {
-                res = (a * b) * (c - d);
-            } else if (z == 2) {
-                res = (a * b) * (c * d);
-            } else if (z == 3) {
-                res = (a * b) * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = (a * b) / (c + d);
-            } else if (z == 1) {
-                res = (a * b) / (c - d);
-            } else if (z == 2) {
-                res = (a * b) / (c * d);
-            } else if (z == 3) {
-                res = (a * b) / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    }else if (x==3) {
-        if (y == 0) {
-            if (z == 0) {
-                res = (a / b) + (c + d);
-            } else if (z == 1) {
-                res = (a / b) + (c - d);
-            } else if (z == 2) {
-                res = (a / b) + (c * d);
-            } else if (z == 3) {
-                res = (a / b) + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = (a / b) - (c + d);
-            } else if (z == 1) {
-                res = (a / b) - (c - d);
-            } else if (z == 2) {
-                res = (a / b) - (c * d);
-            } else if (z == 3) {
-                res = (a / b) - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = (a / b) * (c + d);
-            } else if (z == 1) {
-                res = (a / b) * (c - d);
-            } else if (z == 2) {
-                res = (a / b) * (c * d);
-            } else if (z == 3) {
-                res = (a / b) * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = (a / b) / (c + d);
-            } else if (z == 1) {
-                res = (a / b) / (c - d);
-            } else if (z == 2) {
-                res = (a / b) / (c * d);
-            } else if (z == 3) {
-                res = (a / b) / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
+        i++;
     }
-}
-
-void calc3(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=3;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=((a+b)+c)+d;
-            } else if (z==1){
-                res=((a+b)+c)-d;
-            } else if (z==2){
-                res=((a+b)+c)*d;
-            } else if (z==3){
-                res=((a+b)+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=((a+b)-c)+d;
-            } else if (z==1){
-                res=((a+b)-c)-d;
-            } else if (z==2){
-                res=((a+b)-c)*d;
-            } else if (z==3){
-                res=((a+b)-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=((a+b)*c)+d;
-            } else if (z==1){
-                res=((a+b)*c)-d;
-            } else if (z==2){
-                res=((a+b)*c)*d;
-            } else if (z==3){
-                res=((a+b)*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=((a+b)/c)+d;
-            } else if (z==1){
-                res=((a+b)/c)-d;
-            } else if ((a+b)/c){
-                res=((a+b)/c)*d;
-            } else if (z==3){
-                res=((a+b)/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=((a-b)+c)+d;
-            } else if (z==1){
-                res=((a-b)+c)-d;
-            } else if (z==2){
-                res=((a-b)+c)*d;
-            } else if (z==3){
-                res=((a-b)+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=((a-b)-c)+d;
-            } else if (z==1){
-                res=((a-b)-c)-d;
-            } else if (z==2){
-                res=((a-b)-c)*d;
-            } else if (z==3){
-                res=((a-b)-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=((a-b)*c)+d;
-            } else if (z==1){
-                res=((a-b)*c)-d;
-            } else if (z==2){
-                res=((a-b)*c)*d;
-            } else if (z==3){
-                res=((a-b)*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=((a-b)/c)+d;
-            } else if (z==1){
-                res=((a-b)/c)-d;
-            } else if (z==2){
-                res=((a-b)/c)*d;
-            } else if (z==3){
-                res=((a-b)/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=((a*b)+c)+d;
-            } else if (z==1){
-                res=((a*b)+c)-d;
-            } else if (z==2){
-                res=((a*b)+c)*d;
-            } else if (z==3){
-                res=((a*b)+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=((a*b)-c)+d;
-            } else if (z==1){
-                res=((a*b)-c)-d;
-            } else if (z==2){
-                res=((a*b)-c)*d;
-            } else if (z==3){
-                res=((a*b)-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=((a*b)*c)+d;
-            } else if (z==1){
-                res=((a*b)*c)-d;
-            } else if (z==2){
-                res=((a*b)*c)*d;
-            } else if (z==3){
-                res=((a*b)*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=((a*b)/c)+d;
-            } else if (z==1){
-                res=((a*b)/c)-d;
-            } else if (z==2){
-                res=((a*b)/c)*d;
-            } else if (z==3){
-                res=((a*b)/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=((a/b)+c)+d;
-            } else if (z==1){
-                res=((a/b)+c)-d;
-            } else if (z==2){
-                res=((a/b)+c)*d;
-            } else if (z==3){
-                res=((a/b)+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=((a/b)-c)+d;
-            } else if (z==1){
-                res=((a/b)-c)-d;
-            } else if (z==2){
-                res=((a/b)-c)*d;
-            } else if (z==3){
-                res=((a/b)-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=((a/b)*c)+d;
-            } else if (z==1){
-                res=((a/b)*c)-d;
-            } else if (z==2){
-                res=((a/b)*c)*d;
-            } else if (z==3){
-                res=((a/b)*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=((a/b)/c)+d;
-            } else if (z==1){
-                res=((a/b)/c)-d;
-            } else if (z==2){
-                res=((a/b)/c)*d;
-            } else if (z==3){
-                res=((a/b)/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
-}
-
-void calc4(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=4;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+b+(c+d);
-            } else if (z==1){
-                res=a+b+(c-d);
-            } else if (z==2){
-                res=a+b+(c*d);
-            } else if (z==3){
-                res=a+b+(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+b-(c+d);
-            } else if (z==1){
-                res=a+b-(c-d);
-            } else if (z==2){
-                res=a+b-(c*d);
-            } else if (z==3){
-                res=a+b-(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+b*(c+d);
-            } else if (z==1){
-                res=a+b*(c-d);
-            } else if (z==2){
-                res=a+b*(c*d);
-            } else if (z==3){
-                res=a+b*(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+b/(c+d);
-            } else if (z==1){
-                res=a+b/(c-d);
-            } else if (z==2){
-                res=a+b/(c*d);
-            } else if (z==3){
-                res=a+b/(c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a - b + (c + d);
-            } else if (z == 1) {
-                res = a - b + (c - d);
-            } else if (z == 2) {
-                res = a - b + (c * d);
-            } else if (z == 3) {
-                res = a - b + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a - b - (c + d);
-            } else if (z == 1) {
-                res = a - b - (c - d);
-            } else if (z == 2) {
-                res = a - b - (c * d);
-            } else if (z == 3) {
-                res = a - b - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a - b * (c + d);
-            } else if (z == 1) {
-                res = a - b * (c - d);
-            } else if (z == 2) {
-                res = a - b * (c * d);
-            } else if (z == 3) {
-                res = a - b * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a - b / (c + d);
-            } else if (z == 1) {
-                res = a - b / (c - d);
-            } else if (z == 2) {
-                res = a - b / (c * d);
-            } else if (z == 3) {
-                res = a - b / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    } else if (x==2) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a * b + (c + d);
-            } else if (z == 1) {
-                res = a * b + (c - d);
-            } else if (z == 2) {
-                res = a * b + (c * d);
-            } else if (z == 3) {
-                res = a * b + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a * b - (c + d);
-            } else if (z == 1) {
-                res = a * b - (c - d);
-            } else if (z == 2) {
-                res = a * b - (c * d);
-            } else if (z == 3) {
-                res = a * b - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a * b * (c + d);
-            } else if (z == 1) {
-                res = a * b * (c - d);
-            } else if (z == 2) {
-                res = a * b * (c * d);
-            } else if (z == 3) {
-                res = a * b * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a * b / (c + d);
-            } else if (z == 1) {
-                res = a * b / (c - d);
-            } else if (z == 2) {
-                res = a * b / (c * d);
-            } else if (z == 3) {
-                res = a * b / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    }else if (x==3) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a / b + (c + d);
-            } else if (z == 1) {
-                res = a / b + (c - d);
-            } else if (z == 2) {
-                res = a / b + (c * d);
-            } else if (z == 3) {
-                res = a / b + (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a / b - (c + d);
-            } else if (z == 1) {
-                res = a / b - (c - d);
-            } else if (z == 2) {
-                res = a / b - (c * d);
-            } else if (z == 3) {
-                res = a / b - (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a / b * (c + d);
-            } else if (z == 1) {
-                res = a / b * (c - d);
-            } else if (z == 2) {
-                res = a / b * (c * d);
-            } else if (z == 3) {
-                res = a / b * (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a / b / (c + d);
-            } else if (z == 1) {
-                res = a / b / (c - d);
-            } else if (z == 2) {
-                res = a / b / (c * d);
-            } else if (z == 3) {
-                res = a / b / (c / d);
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    }
-}
-
-void calc5(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=5;
-    float res=0;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+(b+c)+d;
-            } else if (z==1){
-                res=a+(b+c)-d;
-            } else if (z==2){
-                res=a+(b+c)*d;
-            } else if (z==3){
-                res=a+(b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+(b-c)+d;
-            } else if (z==1){
-                res=a+(b-c)-d;
-            } else if (z==2){
-                res=a+(b-c)*d;
-            } else if (z==3){
-                res=a+(b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+(b*c)+d;
-            } else if (z==1){
-                res=a+(b*c)-d;
-            } else if (z==2){
-                res=a+(b*c)*d;
-            } else if (z==3){
-                res=a+(b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+(b/c)+d;
-            } else if (z==1){
-                res=a+(b/c)-d;
-            } else if (z==2){
-                res=a+(b/c)*d;
-            } else if (z==3){
-                res=a+(b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=a-(b+c)+d;
-            } else if (z==1){
-                res=a-(b+c)-d;
-            } else if (z==2){
-                res=a-(b+c)*d;
-            } else if (z==3){
-                res=a-(b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a-(b-c)+d;
-            } else if (z==1){
-                res=a-(b-c)-d;
-            } else if (z==2){
-                res=a-(b-c)*d;
-            } else if (z==3){
-                res=a-(b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a-(b*c)+d;
-            } else if (z==1){
-                res=a-(b*c)-d;
-            } else if (z==2){
-                res=a-(b*c)*d;
-            } else if (z==3){
-                res=a-(b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a-(b/c)+d;
-            } else if (z==1){
-                res=a-(b/c)-d;
-            } else if (z==2){
-                res=a-(b/c)*d;
-            } else if (z==3){
-                res=a-(b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=a*(b+c)+d;
-            } else if (z==1){
-                res=a*(b+c)-d;
-            } else if (z==2){
-                res=a*(b+c)*d;
-            } else if (z==3){
-                res=a*(b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a*(b-c)+d;
-            } else if (z==1){
-                res=a*(b-c)-d;
-//                printf("%f %f %f %f\n",a,b,c,d);
-//                cout<<"aaa"<<res<<"\n";
-            } else if (z==2){
-                res=a*(b-c)*d;
-            } else if (z==3){
-                res=a*(b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a*(b*c)+d;
-            } else if (z==1){
-                res=a*(b*c)-d;
-            } else if (z==2){
-                res=a*(b*c)*d;
-            } else if (z==3){
-                res=a*(b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a*(b/c)+d;
-            } else if (z==1){
-                res=a*(b/c)-d;
-            } else if (z==2){
-                res=a*(b/c)*d;
-            } else if (z==3){
-                res=a*(b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=a/(b+c)+d;
-            } else if (z==1){
-                res=a/(b+c)-d;
-            } else if (z==2){
-                res=a/(b+c)*d;
-            } else if (z==3){
-                res=a/(b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a/(b-c)+d;
-            } else if (z==1){
-                res=a/(b-c)-d;
-            } else if (z==2){
-                res=a/(b-c)*d;
-            } else if (z==3){
-                res=a/(b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a/(b*c)+d;
-            } else if (z==1){
-                res=a/(b*c)-d;
-            } else if (z==2){
-                res=a/(b*c)*d;
-            } else if (z==3){
-                res=a/(b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a/(b/c)+d;
-            } else if (z==1){
-                res=a/(b/c)-d;
-            } else if (z==2){
-                res=a/(b/c)*d;
-            } else if (z==3){
-                res=a/(b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
-}
-
-void calc6(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=6;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=(a+(b+c))+d;
-            } else if (z==1){
-                res=(a+(b+c))-d;
-            } else if (z==2){
-                res=(a+(b+c))*d;
-            } else if (z==3){
-                res=(a+(b+c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a+(b-c))+d;
-            } else if (z==1){
-                res=(a+(b-c))-d;
-            } else if (z==2){
-                res=(a+(b-c))*d;
-            } else if (z==3){
-                res=(a+(b-c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a+(b*c))+d;
-            } else if (z==1){
-                res=(a+(b*c))-d;
-            } else if (z==2){
-                res=(a+(b*c))*d;
-            } else if (z==3){
-                res=(a+(b*c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a+(b/c))+d;
-            } else if (z==1){
-                res=(a+(b/c))-d;
-            } else if (z==2){
-                res=(a+(b/c))*d;
-            } else if (z==3){
-                res=(a+(b/c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=(a-(b+c))+d;
-            } else if (z==1){
-                res=(a-(b+c))-d;
-            } else if (z==2){
-                res=(a-(b+c))*d;
-            } else if (z==3){
-                res=(a-(b+c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a-(b-c))+d;
-            } else if (z==1){
-                res=(a-(b-c))-d;
-            } else if (z==2){
-                res=(a-(b-c))*d;
-            } else if (z==3){
-                res=(a-(b-c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a-(b*c))+d;
-            } else if (z==1){
-                res=(a-(b*c))-d;
-            } else if (z==2){
-                res=(a-(b*c))*d;
-            } else if (z==3){
-                res=(a-(b*c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a-(b/c))+d;
-            } else if (z==1){
-                res=(a-(b/c))-d;
-            } else if (z==2){
-                res=(a-(b/c))*d;
-            } else if (z==3){
-                res=(a-(b/c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=(a*(b+c))+d;
-            } else if (z==1){
-                res=(a*(b+c))-d;
-            } else if (z==2){
-                res=(a*(b+c))*d;
-            } else if (z==3){
-                res=(a*(b+c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a*(b-c))+d;
-            } else if (z==1){
-                res=(a*(b-c))-d;
-            } else if (z==2){
-                res=(a*(b-c))*d;
-            } else if (z==3){
-                res=(a*(b-c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a*(b*c))+d;
-            } else if (z==1){
-                res=(a*(b*c))-d;
-            } else if (z==2){
-                res=(a*(b*c))*d;
-            } else if (z==3){
-                res=(a*(b*c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a*(b/c))+d;
-            } else if (z==1){
-                res=(a*(b/c))-d;
-            } else if (z==2){
-                res=(a*(b/c))*d;
-            } else if (z==3){
-                res=(a*(b/c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=(a/(b+c))+d;
-            } else if (z==1){
-                res=(a/(b+c))-d;
-            } else if (z==2){
-                res=(a/(b+c))*d;
-            } else if (z==3){
-                res=(a/(b+c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a/(b-c))+d;
-            } else if (z==1){
-                res=(a/(b-c))-d;
-            } else if (z==2){
-                res=(a/(b-c))*d;
-            } else if (z==3){
-                res=(a/(b-c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a/(b*c))+d;
-            } else if (z==1){
-                res=(a/(b*c))-d;
-            } else if (z==2){
-                res=(a/(b*c))*d;
-            } else if (z==3){
-                res=(a/(b*c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a/(b/c))+d;
-            } else if (z==1){
-                res=(a/(b/c))-d;
-            } else if (z==2){
-                res=(a/(b/c))*d;
-            } else if (z==3){
-                res=(a/(b/c))/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
-}
-
-void calc7(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=7;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+(b+(c+d));
-            } else if (z==1){
-                res=a+(b+(c-d));
-            } else if (z==2){
-                res=a+(b+(c*d));
-            } else if (z==3){
-                res=a+(b+(c/d));
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+(b-(c+d));
-            } else if (z==1){
-                res=a+(b-(c-d));
-            } else if (z==2){
-                res=a+(b-(c*d));
-            } else if (z==3){
-                res=a+(b-(c/d));
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+(b*(c+d));
-            } else if (z==1){
-                res=a+(b*(c-d));
-            } else if (z==2){
-                res=a+(b*(c*d));
-            } else if (z==3){
-                res=a+(b*(c/d));
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+(b/(c+d));
-            } else if (z==1){
-                res=a+(b/(c-d));
-            } else if (z==2){
-                res=a+(b/(c*d));
-            } else if (z==3){
-                res=a+(b/(c/d));
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a - (b + (c + d));
-            } else if (z == 1) {
-                res = a - (b + (c - d));
-            } else if (z == 2) {
-                res = a - (b + (c * d));
-            } else if (z == 3) {
-                res = a - (b + (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a - (b - (c + d));
-            } else if (z == 1) {
-                res = a - (b - (c - d));
-            } else if (z == 2) {
-                res = a - (b - (c * d));
-            } else if (z == 3) {
-                res = a - (b - (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a - (b * (c + d));
-            } else if (z == 1) {
-                res = a - (b * (c - d));
-            } else if (z == 2) {
-                res = a - (b * (c * d));
-            } else if (z == 3) {
-                res = a - (b * (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a - (b / (c + d));
-            } else if (z == 1) {
-                res = a - (b / (c - d));
-            } else if (z == 2) {
-                res = a - (b / (c * d));
-            } else if (z == 3) {
-                res = a - (b / (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    } else if (x==2) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a * (b + (c + d));
-            } else if (z == 1) {
-                res = a * (b + (c - d));
-            } else if (z == 2) {
-                res = a * (b + (c * d));
-            } else if (z == 3) {
-                res = a * (b + (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a * (b - (c + d));
-            } else if (z == 1) {
-                res = a * (b - (c - d));
-            } else if (z == 2) {
-                res = a * (b - (c * d));
-            } else if (z == 3) {
-                res = a * (b - (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a * (b * (c + d));
-            } else if (z == 1) {
-                res = a * (b * (c - d));
-            } else if (z == 2) {
-                res = a * (b * (c * d));
-            } else if (z == 3) {
-                res = a * (b * (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a * (b / (c + d));
-            } else if (z == 1) {
-                res = a * (b / (c - d));
-            } else if (z == 2) {
-                res = a * (b / (c * d));
-            } else if (z == 3) {
-                res = a * (b / (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    }else if (x==3) {
-        if (y == 0) {
-            if (z == 0) {
-                res = a / (b + (c + d));
-            } else if (z == 1) {
-                res = a / (b + (c - d));
-            } else if (z == 2) {
-                res = a / (b + (c * d));
-            } else if (z == 3) {
-                res = a / (b + (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 1) {
-            if (z == 0) {
-                res = a / (b - (c + d));
-            } else if (z == 1) {
-                res = a / (b - (c - d));
-            } else if (z == 2) {
-                res = a / (b - (c * d));
-            } else if (z == 3) {
-                res = a / (b - (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 2) {
-            if (z == 0) {
-                res = a / (b * (c + d));
-            } else if (z == 1) {
-                res = a / (b * (c - d));
-            } else if (z == 2) {
-                res = a / (b * (c * d));
-            } else if (z == 3) {
-                res = a / (b * (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        } else if (y == 3) {
-            if (z == 0) {
-                res = a / (b / (c + d));
-            } else if (z == 1) {
-                res = a / (b / (c - d));
-            } else if (z == 2) {
-                res = a / (b / (c * d));
-            } else if (z == 3) {
-                res = a / (b / (c / d));
-            }
-            if (24 - res == 0) {
-                pusVec(x, y, z, calc, a, b, c, d, &*buffer);
-            }
-        }
-    }
-}
-
-void calc8(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=8;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+((b+c)+d);
-            } else if (z==1){
-                res=a+((b+c)-d);
-            } else if (z==2){
-                res=a+((b+c)*d);
-            } else if (z==3){
-                res=a+((b+c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+((b-c)+d);
-            } else if (z==1){
-                res=a+((b-c)-d);
-            } else if (z==2){
-                res=a+((b-c)*d);
-            } else if (z==3){
-                res=a+((b-c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+((b*c)+d);
-            } else if (z==1){
-                res=a+((b*c)-d);
-            } else if (z==2){
-                res=a+((b*c)*d);
-            } else if (z==3){
-                res=a+((b*c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+((b/c)+d);
-            } else if (z==1){
-                res=a+((b/c)-d);
-            } else if (z==2){
-                res=a+((b/c)*d);
-            } else if (z==3){
-                res=a+((b/c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=a-((b+c)+d);
-            } else if (z==1){
-                res=a-((b+c)-d);
-            } else if (z==2){
-                res=a-((b+c)*d);
-            } else if (z==3){
-                res=a-((b+c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a-((b-c)+d);
-            } else if (z==1){
-                res=a-((b-c)-d);
-            } else if (z==2){
-                res=a-((b-c)*d);
-            } else if (z==3){
-                res=a-((b-c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a-((b*c)+d);
-            } else if (z==1){
-                res=a-((b*c)-d);
-            } else if (z==2){
-                res=a-((b*c)*d);
-            } else if (z==3){
-                res=a-((b*c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a-((b/c)+d);
-            } else if (z==1){
-                res=a-((b/c)-d);
-            } else if (z==2){
-                res=a-((b/c)*d);
-            } else if (z==3){
-                res=a-((b/c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=a*((b+c)+d);
-            } else if (z==1){
-                res=a*((b+c)-d);
-            } else if (z==2){
-                res=a*((b+c)*d);
-            } else if (z==3){
-                res=a*((b+c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a*((b-c)+d);
-            } else if (z==1){
-                res=a*((b-c)-d);
-            } else if (z==2){
-                res=a*((b-c)*d);
-            } else if (z==3){
-                res=a*((b-c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a*((b*c)+d);
-            } else if (z==1){
-                res=a*((b*c)-d);
-            } else if (z==2){
-                res=a*((b*c)*d);
-            } else if (z==3){
-                res=a*((b*c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a*((b/c)+d);
-            } else if (z==1){
-                res=a*((b/c)-d);
-            } else if (z==2){
-                res=a*((b/c)*d);
-            } else if (z==3){
-                res=a*((b/c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=a/((b+c)+d);
-            } else if (z==1){
-                res=a/((b+c)-d);
-            } else if (z==2){
-                res=a/((b+c)*d);
-            } else if (z==3){
-                res=a/((b+c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a/((b-c)+d);
-            } else if (z==1){
-                res=a/((b-c)-d);
-            } else if (z==2){
-                res=a/((b-c)*d);
-            } else if (z==3){
-                res=a/((b-c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a/((b*c)+d);
-            } else if (z==1){
-                res=a/((b*c)-d);
-            } else if (z==2){
-                res=a/((b*c)*d);
-            } else if (z==3){
-                res=a/((b*c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a/((b/c)+d);
-            } else if (z==1){
-                res=a/((b/c)-d);
-            } else if (z==2){
-                res=a/((b/c)*d);
-            } else if (z==3){
-                res=a/((b/c)/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
-}
-
-void calc9(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=9;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=a+(b+c)+d;
-            } else if (z==1){
-                res=a+(b+c)-d;
-            } else if (z==2){
-                res=a+(b+c)*d;
-            } else if (z==3){
-                res=a+(b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a+(b-c+d);
-            } else if (z==1){
-                res=a+(b-c-d);
-            } else if (z==2){
-                res=a+(b-c*d);
-            } else if (z==3){
-                res=a+(b-c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a+(b*c+d);
-            } else if (z==1){
-                res=a+(b*c-d);
-            } else if (z==2){
-                res=a+(b*c*d);
-            } else if (z==3){
-                res=a+(b*c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a+(b/c+d);
-            } else if (z==1){
-                res=a+(b/c-d);
-            } else if (z==2){
-                res=a+(b/c*d);
-            } else if (z==3){
-                res=a+(b/c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=a-(b+c+d);
-            } else if (z==1){
-                res=a-(b+c-d);
-            } else if (z==2){
-                res=a-(b+c*d);
-            } else if (z==3){
-                res=a-(b+c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a-(b-c+d);
-            } else if (z==1){
-                res=a-(b-c-d);
-            } else if (z==2){
-                res=a-(b-c*d);
-            } else if (z==3){
-                res=a-(b-c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a-(b*c+d);
-            } else if (z==1){
-                res=a-(b*c-d);
-            } else if (z==2){
-                res=a-(b*c*d);
-            } else if (z==3){
-                res=a-(b*c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a-(b/c+d);
-            } else if (z==1){
-                res=a-(b/c-d);
-            } else if (z==2){
-                res=a-(b/c*d);
-            } else if (z==3){
-                res=a-(b/c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=a*(b+c+d);
-            } else if (z==1){
-                res=a*(b+c-d);
-            } else if (z==2){
-                res=a*(b+c*d);
-            } else if (z==3){
-                res=a*(b+c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a*(b-c+d);
-            } else if (z==1){
-                res=a*(b-c-d);
-            } else if (z==2){
-                res=a*(b-c*d);
-            } else if (z==3){
-                res=a*(b-c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a*(b*c+d);
-            } else if (z==1){
-                res=a*(b*c-d);
-            } else if (z==2){
-                res=a*(b*c*d);
-            } else if (z==3){
-                res=a*(b*c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a*(b/c+d);
-            } else if (z==1){
-                res=a*(b/c-d);
-            } else if (z==2){
-                res=a*(b/c*d);
-            } else if (z==3){
-                res=a*(b/c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=a/(b+c+d);
-            } else if (z==1){
-                res=a/(b+c-d);
-            } else if (z==2){
-                res=a/(b+c*d);
-            } else if (z==3){
-                res=a/(b+c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=a/(b-c+d);
-            } else if (z==1){
-                res=a/(b-c-d);
-            } else if (z==2){
-                res=a/(b-c*d);
-            } else if (z==3){
-                res=a/(b-c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=a/(b*c+d);
-            } else if (z==1){
-                res=a/(b*c-d);
-            } else if (z==2){
-                res=a/(b*c*d);
-            } else if (z==3){
-                res=a/(b*c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=a/(b/c+d);
-            } else if (z==1){
-                res=a/(b/c-d);
-            } else if (z==2){
-                res=a/(b/c*d);
-            } else if (z==3){
-                res=a/(b/c/d);
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
-}
-
-void calc10(int x,int y,int z, float a, float b, float c, float d, std::vector<string> *buffer){
-//    cout<<"calc1begin\n";
-    int calc=10;
-    float res;
-    if (x==0){
-        if (y==0){
-            if (z==0) {
-                res=(a+b+c)+d;
-            } else if (z==1){
-                res=(a+b+c)-d;
-            } else if (z==2){
-                res=(a+b+c)*d;
-            } else if (z==3){
-                res=(a+b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a+b-c)+d;
-            } else if (z==1){
-                res=(a+b-c)-d;
-            } else if (z==2){
-                res=(a+b-c)*d;
-            } else if (z==3){
-                res=(a+b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a+b*c)+d;
-            } else if (z==1){
-                res=(a+b*c)-d;
-            } else if (z==2){
-                res=(a+b*c)*d;
-            } else if (z==3){
-                res=(a+b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a+b/c)+d;
-            } else if (z==1){
-                res=(a+b/c)-d;
-            } else if (z==2){
-                res=(a+b/c)*d;
-            } else if (z==3){
-                res=(a+b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==1){
-        if (y==0){
-            if (z==0) {
-                res=(a-b+c)+d;
-            } else if (z==1){
-                res=(a-b+c)-d;
-            } else if (z==2){
-                res=(a-b+c)*d;
-            } else if (z==3){
-                res=(a-b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a-b-c)+d;
-            } else if (z==1){
-                res=(a-b-c)-d;
-            } else if (z==2){
-                res=(a-b-c)*d;
-            } else if (z==3){
-                res=(a-b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a-b*c)+d;
-            } else if (z==1){
-                res=(a-b*c)-d;
-            } else if (z==2){
-                res=(a-b*c)*d;
-            } else if (z==3){
-                res=(a-b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a-b/c)+d;
-            } else if (z==1){
-                res=(a-b/c)-d;
-            } else if (z==2){
-                res=(a-b/c)*d;
-            } else if (z==3){
-                res=(a-b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    } else if (x==2){
-        if (y==0){
-            if (z==0) {
-                res=(a*b+c)+d;
-            } else if (z==1){
-                res=(a*b+c)-d;
-            } else if (z==2){
-                res=(a*b+c)*d;
-            } else if (z==3){
-                res=(a*b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a*b-c)+d;
-            } else if (z==1){
-                res=(a*b-c)-d;
-            } else if (z==2){
-                res=(a*b-c)*d;
-            } else if (z==3){
-                res=(a*b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a*b*c)+d;
-            } else if (z==1){
-                res=(a*b*c)-d;
-            } else if (z==2){
-                res=(a*b*c)*d;
-            } else if (z==3){
-                res=(a*b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a*b/c)+d;
-            } else if (z==1){
-                res=(a*b/c)-d;
-            } else if (z==2){
-                res=(a*b/c)*d;
-            } else if (z==3){
-                res=(a*b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }else if (x==3){
-        if (y==0){
-            if (z==0) {
-                res=(a/b+c)+d;
-            } else if (z==1){
-                res=(a/b+c)-d;
-            } else if (z==2){
-                res=(a/b+c)*d;
-            } else if (z==3){
-                res=(a/b+c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==1){
-            if (z==0) {
-                res=(a/b-c)+d;
-            } else if (z==1){
-                res=(a/b-c)-d;
-            } else if (z==2){
-                res=(a/b-c)*d;
-            } else if (z==3){
-                res=(a/b-c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==2){
-            if (z==0) {
-                res=(a/b*c)+d;
-            } else if (z==1){
-                res=(a/b*c)-d;
-            } else if (z==2){
-                res=(a/b*c)*d;
-            } else if (z==3){
-                res=(a/b*c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        } else if (y==3){
-            if (z==0) {
-                res=(a/b/c)+d;
-            } else if (z==1){
-                res=(a/b/c)-d;
-            } else if (z==2){
-                res=(a/b/c)*d;
-            } else if (z==3){
-                res=(a/b/c)/d;
-            }
-            if (24-res==0){
-                pusVec(x,y,z,calc,a,b,c,d,&*buffer);
-            }
-        }
-    }
+//    cout<<res.size()<<"\n";
+    return res[0];
 }
