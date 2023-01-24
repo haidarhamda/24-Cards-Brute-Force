@@ -39,7 +39,7 @@ int main(){
     std::vector<float> abcd;
     std::string a1="";
     string menu="";
-    std::cout << "1. input\n2. random\n";
+    std::cout << "1. input\n2. random\n(1/2)\n";
     std::cin >> menu;
     while (menu!="1" && menu!="2"){
         std::cout<<"tidak valid!, ulangi input\n";
@@ -115,7 +115,7 @@ int main(){
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
 
     string save="";
-    std::cout << "simpan file solusi?\n"<<"1. simpan\n2. tidak\n";
+    std::cout << "simpan file solusi?\n"<<"1. simpan\n2. tidak\n(1/2)\n";
     std::cin >> save;
     while (save!="1" && save!="2"){
         std::cout<<"tidak valid!, ulangi input\n";

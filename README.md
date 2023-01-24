@@ -2,7 +2,11 @@
 Program untuk mencari semua solusi permainan kartu 24 menggunakan pendekatan brute force.
 
 ## requirement program
-* C++ 11
+* gcc version 12.2.0
+
+## cara kompilasi program
+1. arahkan terminal pada folder src
+2. jalankan perintah `g++ -o ../bin/main main.cpp`
 
 ## cara menggunakan program
 1. Jalankan main.exe yang terdapat pada folder bin
