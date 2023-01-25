@@ -106,11 +106,16 @@ int main(){
     removeDupe(&result);
     int i=0;
     int n=result.size();
-    printf("%d solusi\n",n);
-    while (i<result.size()){
-        std::cout<<result[i]<<"\n";
-        i++;
+    if(n==0){
+        cout<<"tidak ada solusi\n";
+    } else{
+         printf("%d solusi\n",n);
+         while (i<result.size()){
+            std::cout<<result[i]<<"\n";
+            i++;
+        }   
     }
+    
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
 
