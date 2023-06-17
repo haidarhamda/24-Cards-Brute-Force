@@ -8,4 +8,4 @@ Solver for 24 cards game with brute force implementation
 2. execute command `g++ -o ../bin/main main.cpp` in terminal
 
 ##  Author
-Nama: Haidar Hamda
+Haidar Hamda
